@@ -1,4 +1,4 @@
-# 📊 Nike Sales Dashboard — Power BI  
+Nike Dashboard Reporte Financiero Comercial
 ### Análisis Comercial y Financiero 2023–2026 · Proceso ETL, Modelo Dimensional y Medidas DAX
 
 ---
