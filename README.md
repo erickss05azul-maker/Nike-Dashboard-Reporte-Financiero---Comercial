@@ -21,21 +21,20 @@
 
 ---
 
-## 👤 Autor
+## Autor
 
 **Erick Rodrigo Salcca Solorzano**  
-Estudiante de Economía 8vo. Ciclo — Área de interés: Planeamiento Financiero · Control de Gestión · Planeamiento Comercial
+Estudiante de Economía 8vo. Ciclo
 
 ---
 
-## 🗂️ Estructura del repositorio
+## Estructura del repositorio
 
 ```
 Nike-Sales-Dashboard-PowerBI/
 │
 ├── 📁 Dataset/
-│   ├── Nike_Sales_Original.csv        ← dataset original de Kaggle (2,500 filas)
-│   └── Nike_Sales_Expanded.csv        ← dataset ampliado con IA (8,000 filas)
+│   ├── Nike_Sales.csv  
 │
 ├── 📁 Dashboard/
 │   └── NIKE_DASHBOARD.pbix
@@ -51,7 +50,7 @@ Nike-Sales-Dashboard-PowerBI/
 
 ---
 
-## 📦 Origen de los datos
+## Origen de los datos
 
 ### Dataset original — Kaggle
 
@@ -85,7 +84,7 @@ El dataset original de 2,500 filas fue expandido a **8,000 filas y 20 columnas**
 
 ---
 
-## 🎯 Caso de negocio
+## Caso de negocio
 
 **Preguntas que responde el dashboard:**
 
@@ -100,7 +99,7 @@ El dataset original de 2,500 filas fue expandido a **8,000 filas y 20 columnas**
 
 ---
 
-## ⚙️ Proceso ETL — Power Query
+## Proceso ETL — Power Query
 
 > **Herramienta utilizada:** todo el proceso de limpieza y transformación se realizó exclusivamente en **Power Query** dentro de Power BI Desktop, sin preprocesamiento externo.
 
@@ -136,7 +135,7 @@ El dataset original de 2,500 filas fue expandido a **8,000 filas y 20 columnas**
 
 ---
 
-## ⭐ Modelo de datos — Esquema en estrella
+## Modelo de datos
 
 ```
                       Dim_Tiempo
@@ -164,7 +163,7 @@ El dataset original de 2,500 filas fue expandido a **8,000 filas y 20 columnas**
 
 ---
 
-## 📐 Medidas DAX
+## Medidas DAX
 
 Todas las medidas están organizadas en una tabla vacía `_Medidas` separada de la tabla de hechos para mantener el modelo ordenado y profesional.
 
@@ -397,22 +396,10 @@ Ingresos YTD acumulado comparativo 2023–2026 · Comparativo YoY mensual · Var
 | **DAX** | Medidas de KPIs, inteligencia de tiempo, colores condicionales y textos de variación |
 | **Inteligencia Artificial** | Ampliación del dataset original de 2,500 a 8,000 filas con nuevas columnas y regiones |
 
-> No se utilizó Python ni ninguna herramienta externa para la limpieza de datos. Todo el ETL fue realizado íntegramente en Power Query dentro de Power BI Desktop.
 
 ---
 
-## 💡 Aprendizajes clave
-
-- El parseo de fechas con múltiples formatos requiere lógica condicional explícita en M — Power Query no puede inferir el formato cuando hay ambigüedad entre `DD/MM` y `MM/DD` en la misma columna.
-- Nulo y cero no son equivalentes: tratarlos igual destruye promedios y denominadores en DAX. Cada caso requiere una decisión analítica documentada.
-- La variación de un ratio (como margen %) se expresa en puntos porcentuales (PT), no en porcentaje — la diferencia entre dos porcentajes es una resta directa, no un cociente.
-- Un modelo en estrella bien diseñado permite agregar nuevas medidas DAX sin tocar la estructura de datos — la inversión en modelado paga cada vez que se agrega un KPI.
-- Las funciones de inteligencia de tiempo (`TOTALYTD`, `DATEADD`, `SAMEPERIODLASTYEAR`) solo funcionan correctamente con una tabla calendario continua sin gaps, marcada explícitamente como tabla de fechas.
-- Separar las medidas en una tabla vacía `_Medidas` hace el modelo más mantenible y profesional — evita que las medidas queden mezcladas con los campos de la tabla de hechos.
-
----
-
-## 📎 Referencias
+## Referencias
 
 - Nayak, G. (2024). *Nike Sales (Uncleaned) Dataset*. Kaggle. [https://www.kaggle.com/datasets/nayakganesh007/nike-sales-uncleaned-dataset/data](https://www.kaggle.com/datasets/nayakganesh007/nike-sales-uncleaned-dataset/data)
 
@@ -420,7 +407,6 @@ Ingresos YTD acumulado comparativo 2023–2026 · Comparativo YoY mensual · Var
 
 <div align="center">
 
-*Proyecto desarrollado como parte de un portafolio orientado a prácticas preprofesionales*  
-*en planeamiento financiero, control de gestión y planeamiento comercial.*
+*Proyecto desarrollado como parte de un portafolio.*
 
 </div>
