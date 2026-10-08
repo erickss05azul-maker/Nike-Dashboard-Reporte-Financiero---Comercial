@@ -2,7 +2,7 @@
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg" width="80px" />
 
-# Nike Sales Dashboard
+# Nike Dashboard
 ### Power BI · Análisis Comercial y Financiero 2023–2026
 
 ![Power BI](https://img.shields.io/badge/Power%20BI-F2C811?style=flat-square&logo=powerbi&logoColor=black)
