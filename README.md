@@ -6,7 +6,6 @@
 ### Power BI · Análisis Comercial y Financiero 2023–2026
 
 ![Power BI](https://img.shields.io/badge/Power%20BI-F2C811?style=flat-square&logo=powerbi&logoColor=black)
-![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
 ![DAX](https://img.shields.io/badge/DAX-E31837?style=flat-square&logoColor=white)
 ![Status](https://img.shields.io/badge/Estado-Completado-00A86B?style=flat-square)
 
@@ -23,7 +22,7 @@
 ## 👤 Autor
 
 **Erick Rodrigo Salcca Solorzano**  
-Estudiante de Economía — Área de interés: Planeamiento Financiero · Control de Gestión · Planeamiento Comercial
+Estudiante de Economía 8vo. Ciclo
 
 ---
 
