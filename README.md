@@ -24,7 +24,7 @@
 ## 👤 Autor
 
 **Erick Rodrigo Salcca Solorzano**  
-Estudiante de Economía — Área de interés: Planeamiento Financiero · Control de Gestión · Planeamiento Comercial
+Estudiante de Economía 8vo. Ciclo — Área de interés: Planeamiento Financiero · Control de Gestión · Planeamiento Comercial
 
 ---
 
