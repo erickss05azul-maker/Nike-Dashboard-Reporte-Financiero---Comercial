@@ -1,4 +1,3 @@
-[README.md](https://github.com/user-attachments/files/33218748/README.md)
 # 📊 Nike Sales Dashboard — Power BI  
 ### Análisis Comercial y Financiero 2023–2026 · Proceso ETL, Modelo Dimensional y Medidas DAX
 
