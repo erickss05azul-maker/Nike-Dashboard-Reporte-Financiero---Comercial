@@ -8,7 +8,6 @@
 ![Power BI](https://img.shields.io/badge/Power%20BI-F2C811?style=flat-square&logo=powerbi&logoColor=black)
 ![Power Query](https://img.shields.io/badge/Power%20Query-217346?style=flat-square&logo=microsoft&logoColor=white)
 ![DAX](https://img.shields.io/badge/DAX-E31837?style=flat-square&logoColor=white)
-![IA](https://img.shields.io/badge/Datos%20ampliados%20con-IA-8A2BE2?style=flat-square)
 ![Status](https://img.shields.io/badge/Estado-Completado-00A86B?style=flat-square)
 
 </div>
