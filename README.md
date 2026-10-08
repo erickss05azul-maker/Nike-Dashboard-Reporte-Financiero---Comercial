@@ -1,42 +1,74 @@
-Nike Dashboard Reporte Financiero Comercial
-### Análisis Comercial y Financiero 2023–2026 · Proceso ETL, Modelo Dimensional y Medidas DAX
+<div align="center">
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg" width="80px" />
+
+# Nike Sales Dashboard
+### Power BI · Análisis Comercial y Financiero 2023–2026
+
+![Power BI](https://img.shields.io/badge/Power%20BI-F2C811?style=flat-square&logo=powerbi&logoColor=black)
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
+![DAX](https://img.shields.io/badge/DAX-E31837?style=flat-square&logoColor=white)
+![Status](https://img.shields.io/badge/Estado-Completado-00A86B?style=flat-square)
+
+</div>
 
 ---
 
-## Autor
-
-**Erick Rodrigo Salcca Solorzano** — Estudiante de Economía  
-Área de interés: Planeamiento Financiero · Control de Gestión · Planeamiento Comercial
-
----
-
-## Resumen del proyecto
-
-Proyecto de Business Intelligence end-to-end construido sobre un dataset sintético de ventas de Nike.  
-Cubre desde la limpieza de datos en Power Query hasta la publicación de un dashboard interactivo de cuatro páginas con navegación, segmentadores dinámicos y medidas DAX con inteligencia de tiempo.
-
-El proyecto simula el flujo de trabajo real de un analista en un área de planeamiento:  
-extracción y limpieza del dato → modelado dimensional → definición de KPIs → visualización ejecutiva.
+> Proyecto de Business Intelligence end-to-end sobre un dataset sintético de ventas de Nike.  
+> Cubre desde la limpieza de datos en Power Query hasta un dashboard interactivo de cuatro páginas  
+> con modelo dimensional en estrella, medidas DAX con inteligencia de tiempo y navegación entre páginas.
 
 ---
 
-## Caso de negocio
+## 👤 Autor
+
+**Erick Rodrigo Salcca Solorzano**  
+Estudiante de Economía — Área de interés: Planeamiento Financiero · Control de Gestión · Planeamiento Comercial
+
+---
+
+## 🗂️ Estructura del repositorio
+
+```
+Nike-Sales-Dashboard-PowerBI/
+│
+├── 📁 Dataset/
+│   ├── Nike_Sales_Expanded.csv       ← dataset sintético ampliado (raw)
+│   └── Nike_Sales_Cleaned.csv        ← dataset limpio tras el ETL
+│
+├── 📁 Dashboard/
+│   └── NIKE_DASHBOARD.pbix
+│
+├── 📁 Imagenes/
+│   ├── Resumen_Ejecutivo.png
+│   ├── Rentabilidad.png
+│   ├── Geografico.png
+│   └── Analisis_Temporal.png
+│
+└── README.md
+```
+
+---
+
+## 🎯 Caso de negocio
 
 Nike genera miles de transacciones de venta en múltiples canales, regiones y líneas de producto.  
 El área comercial necesita una vista única que responda preguntas de gestión sin depender de extracciones manuales.
 
-**Preguntas de negocio que responde el dashboard:**
+**Preguntas que responde el dashboard:**
 
-- ¿Cuánto se vendió y cuánto se ganó en el período, comparado con el año anterior?
-- ¿Qué línea de producto y qué zona geográfica concentran el margen?
-- ¿Cómo evoluciona el ingreso acumulado (YTD) año a año?
-- ¿En qué meses hubo caída de ventas respecto al mes anterior (MoM)?
-- ¿Qué canal de ventas genera mayor rentabilidad?
-- ¿Qué vendedor cumple mejor su cuota y cuál necesita seguimiento?
+| # | Pregunta |
+|---|---|
+| 1 | ¿Cuánto se vendió y cuánto se ganó, comparado con el año anterior? |
+| 2 | ¿Qué línea de producto y qué zona concentran el margen? |
+| 3 | ¿Cómo evoluciona el ingreso acumulado (YTD) año a año? |
+| 4 | ¿En qué meses hubo caída respecto al mes anterior (MoM)? |
+| 5 | ¿Qué canal de ventas genera mayor rentabilidad? |
+| 6 | ¿Qué vendedor cumple mejor su cuota y cuál necesita seguimiento? |
 
 ---
 
-## Origen de los datos
+## 📦 Origen de los datos
 
 | Ítem | Detalle |
 |---|---|
@@ -49,101 +81,141 @@ El área comercial necesita una vista única que responda preguntas de gestión 
 
 El dataset fue ampliado con Python para agregar cobertura geográfica internacional, nuevas columnas de análisis financiero y errores intencionales de calidad de datos para practicar la limpieza en Power Query.
 
----
+**Columnas del dataset expandido:**
 
-## Columnas del dataset expandido
+<details>
+<summary>Ver diccionario de datos completo</summary>
 
-| Columna | Descripción |
-|---|---|
-| Order_ID | Identificador de transacción (con duplicados intencionales) |
-| Gender_Category | Segmento del producto: Men, Women, Kids |
-| Product_Line | Familia del producto: Running, Basketball, Lifestyle, Training, Soccer |
-| Product_Name | Modelo específico vendido |
-| Talla | Talla del producto (numérica o alfabética según tipo) |
-| Units_Sold | Unidades vendidas (con negativos y nulos como errores) |
-| MRP | Precio de lista antes del descuento |
-| Discount_Applied | Descuento aplicado en decimales (algunos > 1.0 como error) |
-| Revenue | Ingreso final después del descuento |
-| Order_Date | Fecha de transacción (5 formatos distintos mezclados) |
-| Sales_Channel | Online / Retail / Wholesale |
-| Region | Ciudad de venta (con errores tipográficos) |
-| Profit | Ganancia obtenida |
-| Customer_Type | B2C / B2B / Distributor |
-| Seller_ID | Código de vendedor (formato inconsistente y nulos) |
-| Unit_Cost | Costo unitario del producto |
-| Sales_Budget | Presupuesto de ventas por transacción |
-| Payment_Method | Medio de pago utilizado |
-| Return_Flag | Estado de devolución: No / Sí / Pendiente |
-| Customer_Satisfaction | Calificación 1–5 (con valores fuera de rango como error) |
-
----
-
-## Proceso ETL — Power Query
-
-### Problemas de calidad encontrados y decisiones tomadas
-
-| Problema | Columna | Decisión |
+| Columna | Descripción | Problemas intencionales |
 |---|---|---|
-| 5 formatos de fecha distintos | Order_Date | Parseo condicional por formato con `try...otherwise null` |
-| Fechas imposibles (mes 57, día 30 en nov) | Order_Date | Convertidas a null — no se puede recuperar la fecha real |
-| Valores negativos | Units_Sold, Revenue | Units_Sold: convertidos a positivo. Revenue: flagueado con Revenue_Flag |
-| Descuentos > 100% | Discount_Applied | Convertidos a null — error de captura sin posibilidad de corrección |
-| 69 variantes para 28 ciudades | Region | Tabla de mapeo con `Record.FieldOrDefault` en columna personalizada |
-| Dos formatos de Seller_ID | Seller_ID | Estandarizados a formato VEN-XXX |
-| Valores fuera de rango 1–5 | Customer_Satisfaction | Convertidos a null con columna condicional |
-| Duplicados en Order_ID | Order_ID | Eliminados conservando primera ocurrencia (274 filas eliminadas) |
-| Nulos en columnas categóricas | Customer_Type, Payment_Method, Return_Flag | Reemplazados por "Sin registrar" / "Sin dato" |
+| `Order_ID` | Identificador de transacción | Duplicados (~3%) |
+| `Gender_Category` | Segmento del producto: Men, Women, Kids | — |
+| `Product_Line` | Familia: Running, Basketball, Lifestyle, Training, Soccer | — |
+| `Product_Name` | Modelo específico vendido | — |
+| `Talla` | Talla del producto | Nulos, formatos mixtos (numérico y alfabético) |
+| `Units_Sold` | Unidades vendidas | Negativos, nulos |
+| `MRP` | Precio de lista antes del descuento | Nulos, ceros |
+| `Discount_Applied` | Descuento en decimales | Valores > 1.0 (>100%) |
+| `Revenue` | Ingreso final después del descuento | Negativos, mal calculados |
+| `Order_Date` | Fecha de transacción | 5 formatos distintos mezclados, nulos |
+| `Sales_Channel` | Online / Retail / Wholesale | — |
+| `Region` | Ciudad de venta | 69 variantes para 28 ciudades (typos, mayúsculas) |
+| `Profit` | Ganancia obtenida | Negativos válidos |
+| `Customer_Type` | B2C / B2B / Distributor | Nulos |
+| `Seller_ID` | Código de vendedor | Dos formatos distintos (VEN-XXX y VNDxx), nulos |
+| `Unit_Cost` | Costo unitario del producto | Nulos masivos (datos históricos) |
+| `Sales_Budget` | Presupuesto de ventas por transacción | Nulos masivos |
+| `Payment_Method` | Medio de pago | Nulos |
+| `Return_Flag` | No / Sí / Pendiente | Nulos |
+| `Customer_Satisfaction` | Calificación 1–5 | Valores fuera de rango (10–99), nulos |
+
+</details>
+
+---
+
+## ⚙️ Proceso ETL — Power Query
+
+### Problemas encontrados y decisiones tomadas
+
+| Problema | Columna afectada | Decisión |
+|---|---|---|
+| 5 formatos de fecha distintos | `Order_Date` | Parseo condicional por patrón con `try...otherwise null` |
+| Fechas imposibles (mes 57, día 30 en nov) | `Order_Date` | Convertidas a null — no recuperables |
+| Valores negativos en unidades | `Units_Sold` | Convertidos a positivo (error de captura) |
+| Revenue negativo | `Revenue` | Flagueado con columna `Revenue_Flag` |
+| Descuentos > 100% | `Discount_Applied` | Convertidos a null |
+| 69 variantes para 28 ciudades | `Region` | Tabla de mapeo con `Record.FieldOrDefault` |
+| Dos formatos de Seller_ID | `Seller_ID` | Estandarizados a `VEN-XXX` |
+| Valores fuera de rango 1–5 | `Customer_Satisfaction` | Convertidos a null con columna condicional |
+| Duplicados en Order_ID | `Order_ID` | Eliminados (274 filas) conservando primera ocurrencia |
+| Nulos en columnas categóricas | `Customer_Type`, `Payment_Method`, `Return_Flag` | Reemplazados por `"Sin registrar"` / `"Sin dato"` |
 
 ### Columnas derivadas creadas en Power Query
 
-- `Revenue_Flag` — Normal / Negativo / Cero / Sin dato
-- `Zone` — Clasificación geográfica: India / Latinoamérica / Europa / USA
-- `Año`, `Mes_Número`, `Mes_Nombre`, `Trimestre`, `Semana` — derivadas de Order_Date limpia
+| Columna nueva | Lógica | Propósito |
+|---|---|---|
+| `Revenue_Flag` | Condicional sobre Revenue | Identificar transacciones negativas o en cero |
+| `Zone` | Mapeo de Region a zona geográfica | Nivel de agrupación superior a ciudad |
+| `Año`, `Mes_Número`, `Mes_Nombre` | Extraídas de `Order_Date` limpia | Columnas de tiempo para el modelo |
+| `Trimestre`, `Semana` | Derivadas de `Order_Date` | Granularidad temporal adicional |
+
+> **Criterio clave:** nulo y cero no significan lo mismo. Nulo significa dato desconocido; cero significa que ocurrió y fue cero. Tratarlos igual destruye promedios y denominadores en DAX.
 
 ---
 
-## Modelado de datos — Esquema en estrella
+## ⭐ Modelo de datos — Esquema en estrella
 
 ```
-                    Dim_Tiempo
-                        │
-Dim_Cliente ──── Tabla_Hechos ──── Dim_Producto
-                        │
-              Dim_Ubicación    Dim_Vendedor
-                        │
-                  Dim_Transacción
+                      Dim_Tiempo
+                          │
+  Dim_Cliente ──── Tabla_Hechos ──── Dim_Producto
+                          │
+              Dim_Ubicación     Dim_Vendedor
+                          │
+                    Dim_Transacción
 ```
 
-| Tabla | Tipo | Campos clave |
+| Tabla | Tipo | Campos principales |
 |---|---|---|
-| Tabla_Hechos | Hechos | Order_ID, Revenue, Units_Sold, Profit, MRP, Discount_Applied, Sales_Budget, Unit_Cost, Customer_Satisfaction, Talla |
-| Dim_Tiempo | Dimensión de tiempo | Fecha, Año, Mes, Trimestre, AñoTrimestre, AñoMes, DíaSemana, EsFinDeSemana |
-| Dim_Producto | Dimensión | Product_Line, Product_Name, Gender_Category |
-| Dim_Ubicación | Dimensión | Region, Zone |
-| Dim_Cliente | Dimensión | Customer_Type, Sales_Channel |
-| Dim_Vendedor | Dimensión | Seller_ID |
-| Dim_Transacción | Dimensión | Payment_Method, Return_Flag |
+| `Tabla_Hechos` | Hechos | Revenue, Units_Sold, Profit, MRP, Discount_Applied, Sales_Budget, Unit_Cost, Customer_Satisfaction, Talla |
+| `Dim_Tiempo` | Dimensión de tiempo | Fecha, Año, Mes, Trimestre, AñoTrimestre, AñoMes, DíaSemana, EsFinDeSemana, NúmeroSemana |
+| `Dim_Producto` | Dimensión | Product_Line, Product_Name, Gender_Category |
+| `Dim_Ubicación` | Dimensión | Region, Zone |
+| `Dim_Cliente` | Dimensión | Customer_Type, Sales_Channel |
+| `Dim_Vendedor` | Dimensión | Seller_ID |
+| `Dim_Transacción` | Dimensión | Payment_Method, Return_Flag |
 
 **Granularidad:** un registro = una transacción de venta.  
-**Dirección de filtro:** de dimensiones hacia tabla de hechos (uno a muchos).
+**Dirección de filtro:** de dimensiones hacia tabla de hechos (uno a muchos, filtro simple).  
+**Tabla calendario:** continua desde el 01/01/2023 al 31/12/2026, marcada como tabla de fechas en DAX.
 
 ---
 
-## Medidas DAX
+## 📐 Medidas DAX
+
+Todas las medidas están organizadas en una tabla vacía `_Medidas` separada de la tabla de hechos.
 
 ### Métricas base
+
 ```dax
 Ingresos Totales = SUM(Tabla_Hechos[Revenue])
+
 Ganancia Total = SUM(Tabla_Hechos[Profit])
+
 Unidades Vendidas = SUM(Tabla_Hechos[Units_Sold])
+
 Num Transacciones = COUNTROWS(Tabla_Hechos)
+
 Ticket Promedio = DIVIDE([Ingresos Totales], [Num Transacciones], 0)
+
 Margen Bruto % = DIVIDE([Ganancia Total], [Ingresos Totales], 0)
+
+Descuento Promedio = AVERAGE(Tabla_Hechos[Discount_Applied])
+
+Costo Total =
+CALCULATE(
+    SUMX(Tabla_Hechos, Tabla_Hechos[Unit_Cost] * Tabla_Hechos[Units_Sold]),
+    NOT(ISBLANK(Tabla_Hechos[Unit_Cost]))
+)
+
+Satisfacción Promedio =
+CALCULATE(
+    AVERAGE(Tabla_Hechos[Customer_Satisfaction]),
+    NOT(ISBLANK(Tabla_Hechos[Customer_Satisfaction]))
+)
 ```
 
 ### Inteligencia de tiempo
+
 ```dax
-Ingresos YTD = TOTALYTD([Ingresos Totales], Dim_Tiempo[Fecha])
+Ingresos YTD =
+TOTALYTD([Ingresos Totales], Dim_Tiempo[Fecha])
+
+Ganancia YTD =
+TOTALYTD([Ganancia Total], Dim_Tiempo[Fecha])
+
+Ingresos Año Anterior =
+CALCULATE([Ingresos Totales], SAMEPERIODLASTYEAR(Dim_Tiempo[Fecha]))
 
 Ingresos YoY % =
 VAR Actual = [Ingresos Totales]
@@ -162,13 +234,43 @@ AVERAGEX(
 )
 ```
 
-### Rendimiento comercial
+### Medidas de texto para KPIs (variación con flecha)
+
+```dax
+Variacion Ingresos Texto =
+VAR Var = [Ingresos YoY %]
+RETURN
+    SWITCH(
+        TRUE(),
+        ISBLANK(Var),  "Sin año anterior",
+        Var >= 0,      "LY: ▲ +" & FORMAT(Var, "0.00%"),
+                       "LY: ▼ "  & FORMAT(Var, "0.00%")
+    )
+
+Color YoY =
+SWITCH(
+    TRUE(),
+    [Ingresos YoY %] >=  0.05, "#00A86B",
+    [Ingresos YoY %] >= -0.05, "#F5A623",
+    "#E31837"
+)
+```
+
+### Devoluciones y vendedores
+
 ```dax
 Tasa Devolución % =
 DIVIDE(
     COUNTROWS(FILTER(Tabla_Hechos, Tabla_Hechos[Return_Flag] = "Sí")),
-    [Num Transacciones], 0
+    [Num Transacciones],
+    0
 )
+
+Transacciones Devueltas =
+COUNTROWS(FILTER(Tabla_Hechos, Tabla_Hechos[Return_Flag] = "Sí"))
+
+Ingresos en Riesgo =
+CALCULATE([Ingresos Totales], Tabla_Hechos[Return_Flag] = "Pendiente")
 
 Ranking Vendedor =
 RANKX(ALL(Dim_Vendedor[Seller_ID]), [Ingresos Totales], , DESC, DENSE)
@@ -176,75 +278,65 @@ RANKX(ALL(Dim_Vendedor[Seller_ID]), [Ingresos Totales], , DESC, DENSE)
 
 ---
 
-## Estructura del dashboard
+## 📊 Páginas del dashboard
 
 ### Página 1 — Resumen Ejecutivo
-KPIs con variación YoY · Tendencia de ingresos por trimestre · Unidades por línea de producto · Distribución por canal de ventas
+KPIs con variación YoY · Tendencia de ingresos por trimestre · Unidades vendidas por línea de producto · Distribución por canal de ventas
+Segmentadores: Año · Trimestre · Canal de Ventas
 
-### Página 2 — Rentabilidad
-Ganancia y margen bruto por trimestre · Ingresos por línea y segmento de género · Margen por tipo de cliente y canal
-
-### Página 3 — Análisis Geográfico
-Mapa de burbujas por región · Tabla comparativa por zona · Dispersión Ingresos vs Margen Bruto por zona
-
-### Página 4 — Análisis Temporal
-Ingresos YTD acumulado por año (comparativo 2023–2026) · Comparativo YoY mensual · Tabla de resumen trimestral con variaciones
+![Resumen Ejecutivo](Imagenes/Resumen_Ejecutivo.png)
 
 ---
 
-## Vista previa del dashboard
+### Página 2 — Rentabilidad
+Ganancia y margen bruto por trimestre · Ingresos por línea y segmento de género · Margen por tipo de cliente y canal de ventas
+Segmentadores: Año · Línea de Producto · Zona
 
-### Resumen Ejecutivo
-![Resumen Ejecutivo](Imagenes/Resumen_Ejecutivo.png)
-
-### Rentabilidad
 ![Rentabilidad](Imagenes/Rentabilidad.png)
 
-### Análisis Geográfico
+---
+
+### Página 3 — Análisis Geográfico
+Mapa de burbujas por región · Tabla comparativa por zona · Dispersión Ingresos vs Margen Bruto
+Segmentadores: Año · Zona · Género
+
 ![Geográfico](Imagenes/Geografico.png)
 
-### Análisis Temporal
+---
+
+### Página 4 — Análisis Temporal
+Ingresos YTD acumulado comparativo 2023–2026 · Comparativo YoY mensual · Variación MoM con barras positivo/negativo · Tabla resumen trimestral
+Segmentadores: Año · Línea de Producto
+
 ![Análisis Temporal](Imagenes/Analisis_Temporal.png)
 
 ---
 
-## Herramientas utilizadas
+## 🛠️ Herramientas utilizadas
 
-| Herramienta | Uso |
-|---|---|
-| Python (pandas, numpy) | Generación y expansión del dataset sintético |
-| Power BI Desktop | ETL en Power Query, modelado dimensional, DAX, visualización |
-| DAX | Medidas de KPIs, inteligencia de tiempo, rankings |
-| GitHub | Control de versiones y publicación del portafolio |
+| Herramienta | Versión | Uso en el proyecto |
+|---|---|---|
+| Python | 3.x | Generación y expansión del dataset con `pandas` y `numpy` |
+| Power BI Desktop | 2024 | ETL en Power Query, modelado, DAX y visualización |
+| Power Query (M) | — | Limpieza, transformación y carga de datos |
+| DAX | — | Medidas de KPIs, inteligencia de tiempo y rankings |
+| GitHub | — | Control de versiones y publicación del portafolio |
 
 ---
 
-## Aprendizajes clave
+## 💡 Aprendizajes clave
 
-- El parseo de fechas con múltiples formatos requiere lógica condicional explícita — Power Query no puede inferir el formato cuando hay ambigüedad entre DD/MM y MM/DD.
+- El parseo de fechas con múltiples formatos requiere lógica condicional explícita en M — Power Query no puede inferir el formato cuando hay ambigüedad entre `DD/MM` y `MM/DD` en la misma columna.
 - La decisión sobre nulos no es técnica sino analítica: nulo y cero no significan lo mismo y tratarlos igual destruye métricas de promedio y denominador.
-- Un modelo en estrella bien diseñado permite agregar nuevas métricas DAX sin tocar la estructura de datos — la inversión en modelado paga cada vez que se agrega un KPI.
-- Las medidas de inteligencia de tiempo solo funcionan correctamente con una tabla calendario continua (sin gaps) conectada a la tabla de hechos.
+- Un modelo en estrella bien diseñado permite agregar nuevas medidas DAX sin tocar la estructura de datos — la inversión en modelado paga cada vez que se agrega un KPI.
+- Las funciones de inteligencia de tiempo (`TOTALYTD`, `SAMEPERIODLASTYEAR`, `DATEADD`) solo funcionan correctamente con una tabla calendario continua sin gaps, marcada como tabla de fechas.
+- Separar las medidas en una tabla vacía `_Medidas` hace el modelo más mantenible y profesional.
 
 ---
 
-## Estructura del repositorio
+<div align="center">
 
-```
-Nike-Sales-Dashboard-PowerBI/
-├── Dataset/
-│   ├── Nike_Sales_Expanded.csv
-│   └── Nike_Sales_Cleaned.csv
-├── Dashboard/
-│   └── NIKE_DASHBOARD.pbix
-├── Imagenes/
-│   ├── Resumen_Ejecutivo.png
-│   ├── Rentabilidad.png
-│   ├── Geografico.png
-│   └── Analisis_Temporal.png
-└── README.md
-```
+*Proyecto desarrollado como parte de un portafolio orientado a prácticas preprofesionales*  
+*en planeamiento financiero, control de gestión y planeamiento comercial.*
 
----
-
-*Proyecto desarrollado como parte de un portafolio de análisis de datos orientado a prácticas preprofesionales en planeamiento financiero y comercial.*
+</div>
